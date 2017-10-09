@@ -5,10 +5,6 @@
 |Author|王磊|
 |---|---
 |E-mail|wanglei6111@gmail.com
-
-
-===============================
-
 使用
 ===============================
 首先导入库zbarlight和PIL。<br>
@@ -27,12 +23,16 @@ from PIL import Image
 from picamera import PiCamera
 from time import sleep
 ```
+摄像头模块：
+```
 camera = PiCamera()
 camera.start_preview()                      #启动摄像头
 sleep(0.5)                                  #预热并对焦
 camera.capture('/home/pi/Desktop/cc.png')   #储存捕捉的图像
 camera.stop_preview()
-
+```
+图像识别模块：
+```
 img = Image.open("/home/pi/Desktop/cc.png") #打开捕捉的图像
 img.show()                                 
 
@@ -43,4 +43,5 @@ with open(file_path, 'rb') as image_file:   #加载捕捉的图像
 
 codes = zbarlight.scan_codes('qrcode', image) #解析二维码并打印
 print('QR codes: %s' % codes)
-
+```
+图片暂存到桌面，下一版图片在内存中解析。
