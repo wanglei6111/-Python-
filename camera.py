@@ -3,6 +3,7 @@ import time
 import picamera
 import logging
 import random
+import zbarlight
 from PIL import Image
 from picamera import PiCamera
 from time import sleep
