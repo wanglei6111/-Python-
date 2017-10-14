@@ -7,7 +7,6 @@
 |E-mail|wanglei6111@gmail.com
 
 
-
 使用
 ===============================
 首先导入库zbarlight和PIL等库。<br>
@@ -36,11 +35,33 @@ print('QR codes: %s' % codes)
 ```
 图像流处理：
 ```
-stream=io.BytesIO()
-  with picamera.PiCamera() as camera:
+stream=io.BytesIO()                    #使用io
+  with picamera.PiCamera() as camera:
       camera.start_preview()
-      sleep(2)
-      camera.capture(stream,format="jpeg")
-      stream.seek(0)
-      image=Image.open(stream)
+      sleep(2)                         #两秒做对焦最低0.2
+      camera.capture(stream,format="jpeg") #获得jpeg照片流
+      stream.seek(0)                       #将流指针指向初始端           
+      image=Image.open(stream)             
+      codes = zbarlight.scan_codes('qrcode', image)
+    print('QR codes: %s' % codes)
+```
+网络请求：
+```
+apiurl = '你的网址'
+apiheaders = {'U-ApiKey': '你的key'}
+response = requests.get(apiurl,params={"key1": 'value1', "key2": value2...}) #get方法请求对应的参数  
+temp = response.json()  #json返回值  
+print(temp)
+code=temp['code']
+print(code)
+```
+蜂鸣器及继电器等：
+```
+GPIO.setwarnings(False)  
+PIN_NO = 13 #GPIO编号，可自定义  
+PIN_aa=11   #GPIO编号，可自定义
+GPIO.setmode(GPIO.BOARD)  
+GPIO.setup(PIN_NO, GPIO.OUT)  
+GPIO.setup(PIN_aa, GPIO.OUT)
+GPIO.output(PIN_aa, GPIO.HIGH)
 ```
