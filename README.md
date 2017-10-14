@@ -57,3 +57,4 @@ stream=io.BytesIO()
       camera.capture(stream,format="jpeg")
       stream.seek(0)
       image=Image.open(stream)
+```
