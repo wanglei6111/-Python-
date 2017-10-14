@@ -47,3 +47,13 @@ codes = zbarlight.scan_codes('qrcode', image) #解析二维码并打印
 print('QR codes: %s' % codes)
 ```
 图片暂存到桌面，下一版图片在内存中解析。
+```
+图像流处理：
+```
+stream=io.BytesIO()
+  with picamera.PiCamera() as camera:
+      camera.start_preview()
+      sleep(2)
+      camera.capture(stream,format="jpeg")
+      stream.seek(0)
+      image=Image.open(stream)
