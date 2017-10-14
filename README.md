@@ -10,21 +10,9 @@
 
 使用
 ===============================
-首先导入库zbarlight和PIL。<br>
+首先导入库zbarlight和PIL等库。<br>
 然后复制代码：
 ***
-要引入的：
-```
-#-*- coding: UTF-8 -*-
-import time
-import picamera
-import logging
-import random
-import zbarlight
-from PIL import Image
-from picamera import PiCamera
-from time import sleep
-```
 摄像头模块：
 ```
 camera = PiCamera()
