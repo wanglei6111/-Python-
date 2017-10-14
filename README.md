@@ -13,7 +13,7 @@
 首先导入库zbarlight和PIL等库。<br>
 然后复制代码：
 ***
-摄像头模块：
+摄像头：
 ```
 camera = PiCamera()
 camera.start_preview()                      #启动摄像头
@@ -21,7 +21,7 @@ sleep(0.5)                                  #预热并对焦
 camera.capture('/home/pi/Desktop/cc.png')   #储存捕捉的图像
 camera.stop_preview()
 ```
-图像识别模块：
+图像识别：
 ```
 img = Image.open("/home/pi/Desktop/cc.png") #打开捕捉的图像
 img.show()                                 
