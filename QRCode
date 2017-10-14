@@ -6,7 +6,6 @@ import zbarlight
 import picamera
 import io
 import json
-
 from picamera import PiCamera
 from time import sleep
 from PIL import Image
