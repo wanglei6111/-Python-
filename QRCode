@@ -1,1 +1,69 @@
+#-*- coding: utf-8 -*-
+import RPi.GPIO as GPIO  
+import time
+import requests
+import zbarlight
+import picamera
+import io
+import json
+
+from picamera import PiCamera
+from time import sleep
+from PIL import Image
+
+
+#蜂鸣器和继电器
+GPIO.setwarnings(False)  
+PIN_NO = 13 #蜂鸣器GPIO编号，可自定义  
+PIN_aa=11   #继电器GPIO编号，可自定义
+GPIO.setmode(GPIO.BOARD)  
+GPIO.setup(PIN_NO, GPIO.OUT)  
+GPIO.setup(PIN_aa, GPIO.OUT)
+GPIO.output(PIN_aa, GPIO.HIGH)
+
+#哔1次，时长作为参数传递  
+def beep(seconds):
+        GPIO.output(PIN_NO, GPIO.LOW)  
+        time.sleep(seconds)  
+        GPIO.output(PIN_NO, GPIO.HIGH)
+        time.sleep(seconds)
+        
+#哔N次，时长、间隔时长、重复次数作为参数传递  
+def beepAction(secs,seconds,times):  
+        for i in range(times):  
+            beep(secs)  
+            time.sleep(seconds)
+            
+if __name__ == '__main__':
+#图像流储存处理
+  stream=io.BytesIO()
+  with picamera.PiCamera() as camera:
+      camera.start_preview()
+      sleep(2)
+      camera.capture(stream,format="jpeg")
+      stream.seek(0)
+      image=Image.open(stream)
+      
+#二维码识别
+    codes = zbarlight.scan_codes('qrcode', image)
+    print('QR codes: %s' % codes)
+    
+# 网络请求
+apiurl = '网址'
+apiheaders = {'U-ApiKey': '你的key'}
+response = requests.get(apiurl,params={"key1": 'value1', "key2": value2, "scene": 1, ...})
+temp = response.json()
+code=temp['key1']
+
+# 判断输出高低电压控制继电器和蜂鸣器
+if code == 0:
+    beepAction(0.0005, 0.0006, 220)
+    GPIO.output(PIN_aa, GPIO.LOW)
+    print '1'
+    time.sleep(5)
+    GPIO.output(PIN_aa, GPIO.HIGH)
+    print '2'
+    print('ok',json)
+else:
+    print('NO', json)
 
