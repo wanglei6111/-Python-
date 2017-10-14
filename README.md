@@ -46,8 +46,6 @@ with open(file_path, 'rb') as image_file:   #加载捕捉的图像
 codes = zbarlight.scan_codes('qrcode', image) #解析二维码并打印
 print('QR codes: %s' % codes)
 ```
-图片暂存到桌面，下一版图片在内存中解析。
-```
 图像流处理：
 ```
 stream=io.BytesIO()
